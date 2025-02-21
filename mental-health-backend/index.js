@@ -6,6 +6,9 @@ const compression = require("compression");
 const rateLimit = require("express-rate-limit");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
+const dashboardRoute = require("./routes/dashboardRoutes");
+const activityRoutes = require("./routes/activityRoutes");
+const sessionRoute = require("./routes/sessionRoutes");
 
 dotenv.config();
 const app = express();
@@ -26,6 +29,9 @@ app.get("/", (req, res) => {
     res.send("AI-Powered Healthcare Assistant API Running...");
 });
 app.use("/api/auth", authRoutes);
+app.use("/api/dashboard", dashboardRoute);
+app.use("/api/activity", activityRoutes);
+app.use("/api/sessions", sessionRoute);
 
 // Start server
 const PORT = process.env.PORT || 5000;
