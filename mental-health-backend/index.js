@@ -3,17 +3,18 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const helmet = require("helmet");
 const compression = require("compression");
+const rateLimit = require("express-rate-limit");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
-const reportRoutes = require("./routes/reportRoutes");
 
 dotenv.config();
 const app = express();
-
 app.use(cors());
 app.use(helmet());
 app.use(compression());
 
+
+// Middleware for JSON parsing
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -24,11 +25,7 @@ connectDB();
 app.get("/", (req, res) => {
     res.send("AI-Powered Healthcare Assistant API Running...");
 });
-
-
 app.use("/api/auth", authRoutes);
-app.use("/api/reports", reportRoutes);
-
 
 // Start server
 const PORT = process.env.PORT || 5000;
