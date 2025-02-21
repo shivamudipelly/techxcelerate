@@ -30,7 +30,7 @@ import {
     ];
   
     return (
-      <div className="h-screen bg-gray-50 overflow-hidden">
+      <div className="border  bg-gray-50">
         {/* Main Content */}
         <div className="h-full p-8">
           {/* Header with User Info */}

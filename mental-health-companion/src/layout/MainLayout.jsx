@@ -7,11 +7,13 @@ import { sidebarData } from "../data/sidebar";
 
 const MainLayout = () => {
   return (
+
     <div className="flex h-screen">
       {/* Responsive Layout: Separate UI for Desktop and Mobile */}
       {/* Desktop View */}
       <div className="hidden md:flex w-full">
-        {/* Desktop Sidebar */}
+        {/* <div className="h-screen"> */}
+          {/* Desktop Sidebar */}
           <DesktopSidebar>
             {sidebarData.map((section, index) => (
               <div key={index}>
@@ -30,8 +32,9 @@ const MainLayout = () => {
               </div>
             ))}
           </DesktopSidebar>
+        {/* </div> */}
         {/* Desktop Content */}
-        <div className="flex-1">
+        <div className="flex-1 max-h-screen overflow-auto">
           <Outlet />
         </div>
       </div>

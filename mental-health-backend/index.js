@@ -1,17 +1,19 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const helmet = require("helmet");
 const compression = require("compression");
-const rateLimit = require("express-rate-limit");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 
 dotenv.config();
 const app = express();
 app.use(cors());
+
 app.use(helmet());
 app.use(compression());
+app.use(cookieParser());
 
 
 // Middleware for JSON parsing
@@ -21,10 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 // Connect to MongoDB
 connectDB();
 
-// Default route
-app.get("/", (req, res) => {
-    res.send("AI-Powered Healthcare Assistant API Running...");
-});
+
 app.use("/api/auth", authRoutes);
 
 // Start server

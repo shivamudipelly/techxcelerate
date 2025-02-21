@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../config";
+
+
+
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -15,24 +19,45 @@ const Signup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setError(""); // Reset error on submit
+  
     if (formData.password !== formData.confirmPassword) {
       setError("Passwords do not match!");
       return;
     }
-
-    // Save signup data to localStorage
-    localStorage.setItem("signupData", JSON.stringify(formData));
-
-    console.log("User signed up successfully!", formData);
-
-    // Redirect to login page after 1 second
-    setTimeout(() => {
-      navigate("/login");
-    }, 1000);
+  
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.fullName, // mapping fullName to name
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+  
+      const data = await response.json();
+  
+      if (!response.ok) {
+        throw new Error(data.message || "Signup failed");
+      }
+  
+      console.log("User signed up successfully!", data);
+  
+      // Redirect to login page after successful signup
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+    } catch (error) {
+      setError(error.message);
+    }
   };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-50 to-purple-50">

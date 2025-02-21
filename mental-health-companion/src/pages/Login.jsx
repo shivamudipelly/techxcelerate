@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../config";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -8,25 +9,36 @@ const Login = () => {
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(""); // Reset error on submit
 
-    // Retrieve stored user data
-    const storedUser = JSON.parse(localStorage.getItem("signupData"));
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (!storedUser || storedUser.email !== email || storedUser.password !== password) {
-      setError("Invalid email or password!");
-      return;
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed");
+      }
+
+      console.log("User logged in successfully!", data);
+      // Optionally, store tokens or user info in localStorage
+      if (data.token) {
+        document.cookie = `token=${data.token}; path=/; max-age=604800; secure; samesite=strict`;
+      }
+      
+
+      navigate("/dashboard");
+    } catch (error) {
+      setError(error.message);
     }
-
-    // If "Keep me logged in" is checked, store login state
-    if (keepLoggedIn) {
-      localStorage.setItem("isLoggedIn", "true");
-    }
-
-    console.log("User logged in successfully!");
-    navigate("/dashboard"); // 🔹 Redirect to dashboard or home page
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-50 to-purple-50">

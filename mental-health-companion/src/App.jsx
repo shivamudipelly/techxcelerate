@@ -1,11 +1,19 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+
+
 import MainLayout from './layout/MainLayout';
-import DragAndDropList from './components/DragAndDropList';
+import DragAndDropList from './pages/DragAndDropList';
 
 
 import './App.css';
 import ChatInterface from './pages/ChatInterface';
+import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
+import Signup from './pages/Signup';
+import Dashboard from './pages/Dashboard';
+import Settings from './pages/Setting';
+import Home from './pages/Home';
 
 function App() {
   return (
@@ -14,32 +22,14 @@ function App() {
         {/* MainLayout is the parent route */}
         <Route path="/" element={<MainLayout />}>
           {/* Index route - this will render Home with direct text */}
-          <Route index element={<div>Welocme to the Home page!</div>} />
-
-          {/* Dashboard route */}
-          <Route path="dashboard" element={<div>Welcome to the Dashboard!</div>} />
-
-          {/* Statistics route */}
-          <Route path="statistics" element={<div>Welcome to the Statistics Page!</div>} />
-
-          {/* Chat route */}
+          <Route index element={<Home />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="chat" element={<ChatInterface />} />
-
-          {/* Orders route */}
           <Route path="fileUpload" element={<DragAndDropList />} />
-
-          {/* Billings route */}
-          <Route path="billings" element={<div>Welcome to the Billings Page!</div>} />
-
-          {/* Help route */}
-          <Route path="help" element={<div>Welcome to the Help Page!</div>} />
-
-          {/* Profile route */}
-          <Route path="profile" element={<div>Welcome to the Profile Page!</div>} />
-
-          {/* Settings route */}
-          <Route path="settings" element={<div>Welcome to the Settings Page!</div>} />
-          <Route path="home" element={<div>Welcome to the Home Page!</div>} />
+          <Route path="settings" element={<Settings />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
         </Route>
       </Routes>
     </BrowserRouter>

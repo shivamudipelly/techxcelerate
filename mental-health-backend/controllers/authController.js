@@ -5,13 +5,13 @@ const sendEmail = require("../utils/sendEmail");
 
 // @route POST /api/auth/register
 const registerUser = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password } = req.body;
 
   try {
     const userExists = await User.findOne({ email });
     if (userExists) return res.status(400).json({ message: "User already exists" });
 
-    const user = await User.create({ name, email, password, role });
+    const user = await User.create({ name, email, password });
     res.status(201).json({
       _id: user._id,
       name: user.name,
@@ -19,6 +19,7 @@ const registerUser = async (req, res) => {
       role: user.role,
     });
   } catch (error) {
+    console.log(error.message)
     res.status(500).json({ message: "Registration failed", error: error.message });
   }
 };
@@ -28,34 +29,40 @@ const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    // Find user by email
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: "Invalid email or password" });
 
+    // Check password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: "Invalid email or password" });
 
-    // Generate token
+    // Generate JWT Token
     const token = generateToken(user._id);
 
-    // Store token in HTTP-only cookie
-    res.cookie("jwt", token, {
-      httpOnly: true, // Prevents JavaScript access (XSS protection)
-      secure: process.env.NODE_ENV === "production", // Only send over HTTPS in production
-      sameSite: "Strict", // CSRF protection
-      maxAge: 60 * 60 * 1000, // 1 hour
+    // Set token as an HTTP-only cookie
+    res.cookie("authToken", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production", // Ensures HTTPS in production
+      sameSite: "Strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
+    // Send user info and token
     res.status(200).json({
       _id: user._id,
       name: user.name,
       email: user.email,
       role: user.role,
       message: "Login successful",
+      token: token, // Send token in response (optional)
     });
   } catch (error) {
+    console.error("Login Error:", error.message);
     res.status(500).json({ message: "Login failed", error: error.message });
   }
-};
+}
+
 
 // @route POST /api/auth/logout
 const logoutUser = async (req, res) => {
@@ -111,4 +118,4 @@ const resetPassword = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, logoutUser,forgotPassword, resetPassword };
+module.exports = { registerUser, loginUser, logoutUser, forgotPassword, resetPassword };
