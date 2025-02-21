@@ -1,6 +1,6 @@
 import React, { useState, createContext } from "react";
 import PropTypes from "prop-types";
-import { MoreVertical, ChevronLast, ChevronFirst } from "lucide-react";
+import {  ChevronLast, ChevronFirst } from "lucide-react";
 
 
 // Create and export SidebarContext
@@ -28,9 +28,10 @@ export default function Sidebar({ children }) {
                     </button>
 
                     {/* Logo Section */}
+                    <b className={` transition-all ${expanded ? "w-6" : "w-0 overflow-hidden"}`}>UCHIHA</b>
                     <img
-                        src="https://img.logoipsum.com/243.svg"
-                        className={`overflow-hidden transition-all ${expanded ? "w-25" : "w-0"}`}
+                        src="https://w7.pngwing.com/pngs/812/937/png-transparent-pokemon-go-icon-sasuke-uchiha-itachi-uchiha-madara-uchiha-naruto-uzumaki-clan-uchiha-ed-70-favorited-miscellaneous-naruto-clan-uchiha.png"
+                        className={`overflow-hidden transition-all ${expanded ? "w-6" : "w-0"}`}
                         alt="Logo"
                     />
                 </div>
@@ -48,7 +49,7 @@ export default function Sidebar({ children }) {
                 </SidebarContext.Provider>
 
                 {/* User Info Section */}
-                <div className="border-t flex p-3">
+                {/* <div className="border-t flex p-3">
                     <img
                         src="https://ui-avatars.com/api/?background=c7d2fe&color=3730a3&bold=true"
                         alt="User Avatar"
@@ -61,7 +62,7 @@ export default function Sidebar({ children }) {
                         </div>
                         <MoreVertical size={20} />
                     </div>
-                </div>
+                </div> */}
             </nav>
         </aside>
     );

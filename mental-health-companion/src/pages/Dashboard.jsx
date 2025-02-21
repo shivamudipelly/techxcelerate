@@ -8,8 +8,8 @@ import {
   
   const Dashboard = () => {
     const userInfo = {
-      name: "John Doe",
-      email: "john.doe@example.com",
+      name: "User",
+      email: "email@gmail.com",
       healthStatus: {
         currentMood: "Stable",
         anxiety: "Low",

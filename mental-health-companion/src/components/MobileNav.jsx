@@ -50,7 +50,12 @@ export default function MobileNav() {
         >
           {menuOpen ? <X /> : <Menu />}
         </button>
-        <img src="https://img.logoipsum.com/243.svg" alt="Logo" className="h-8 ml-4" />
+        <b className={` transition-all `}>UCHIHA</b>
+                    <img
+                        src="https://w7.pngwing.com/pngs/812/937/png-transparent-pokemon-go-icon-sasuke-uchiha-itachi-uchiha-madara-uchiha-naruto-uzumaki-clan-uchiha-ed-70-favorited-miscellaneous-naruto-clan-uchiha.png"
+                        className={`overflow-hidden transition-all w-6 h-6`}
+                        alt="Logo"
+                    />
       </div>
 
       {menuOpen && (

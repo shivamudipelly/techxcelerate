@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainLayout from './layout/MainLayout';
 import DragAndDropList from './pages/DragAndDropList';
 
-
 import './App.css';
 import ChatInterface from './pages/ChatInterface';
 import Login from './pages/Login';
@@ -14,6 +13,7 @@ import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Settings from './pages/Setting';
 import Home from './pages/Home';
+import Quiz from './pages/Quiz';
 
 function App() {
   return (
@@ -30,6 +30,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="quiz" element={<Quiz />} />
         </Route>
       </Routes>
     </BrowserRouter>
