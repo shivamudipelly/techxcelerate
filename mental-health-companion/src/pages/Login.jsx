@@ -1,10 +1,12 @@
-import { useState } from "react";
+import {  useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../config";
+// import { AuthContext } from "./AuthContext";
 
 const Login = () => {
+  // const {userName, password, setUserName, setPassword} = useContext(AuthContext)
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [pswd, setPswd] = useState("");
   const [error, setError] = useState("");
   const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ const Login = () => {
       const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, pswd }),
       });
 
       const data = await response.json();
@@ -82,8 +84,8 @@ const Login = () => {
               <input
                 type="password"
                 placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={pswd}
+                onChange={(e) => setPswd(e.target.value)}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-black focus:outline-none focus:ring-2 focus:ring-blue-500"
                 required
               />

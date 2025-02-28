@@ -1,13 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  User,
-  Settings as SettingsIcon,
-  Key,
-  Globe,
-  LogOut,
-  ChevronRight,
-} from "lucide-react";
+import { User, Settings as SettingsIcon, Key, Globe, LogOut, ChevronRight } from "lucide-react";
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -33,7 +26,7 @@ const Settings = () => {
       title: "Password",
       description: "Change your password",
       icon: Key,
-      onClick: () => navigate("/settings/password"),
+      onClick: () => navigate("/settings/password"), // Redirect to ChangePassword page
     },
     {
       title: "Manage Account",

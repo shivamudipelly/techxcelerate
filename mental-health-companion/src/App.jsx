@@ -14,8 +14,12 @@ import Dashboard from './pages/Dashboard';
 import Settings from './pages/Setting';
 import Home from './pages/Home';
 import Quiz from './pages/Quiz';
+import ChangePassword from './pages/ChangePassword';
+// import { useContext } from 'react';
+// import { AuthContext } from './pages/AuthContext';
 
 function App() {
+  // const { isAuthenticated } = useContext(AuthContext)
   return (
     <BrowserRouter>
       <Routes>
@@ -31,6 +35,7 @@ function App() {
           <Route path="signup" element={<Signup />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="quiz" element={<Quiz />} />
+          <Route path="settings/password" element={<ChangePassword />} />
         </Route>
       </Routes>
     </BrowserRouter>

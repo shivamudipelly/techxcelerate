@@ -25,6 +25,14 @@ const Quiz = () => {
       return;
     }
 
+    // Reset state when starting a new quiz
+    setQuestions([]);
+    setUserResponses({});
+    setCurrentQuestionIndex(0);
+    setResult(null);
+    setShowQuestions(false);
+    setWaitingForResult(false);
+
     setLoading(true);
     try {
       const response = await fetch(
@@ -56,7 +64,6 @@ const Quiz = () => {
 
       const formattedQuestions = rawQuestions.slice(0, 10).map((q) => {
         const match = q.match(/Question \d+: (.*?)\s*A\) (.*?)\s*B\) (.*?)\s*C\) (.*?)\s*D\) (.*)/s);
-
         return match
           ? {
               question: match[1].trim(),
