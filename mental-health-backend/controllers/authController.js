@@ -40,13 +40,6 @@ const loginUser = async (req, res) => {
     // Generate JWT Token
     const token = generateToken(user._id);
 
-    // Set token as an HTTP-only cookie
-    res.cookie("authToken", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // Ensures HTTPS in production
-      sameSite: "Strict",
-      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    });
 
     // Send user info and token
     res.status(200).json({
